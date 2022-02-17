@@ -1,9 +1,14 @@
 #!/usr/bin/env zsh
 
+function sources() {
+    find ~/.ssh/config
+    find ~/.ssh/config.d/
+}
+
 h=()
 
 if [[ -r ~/.ssh/config ]]; then
-  h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config ~/.ssh/config.d/*.sshconfig)"}:#Host *}#Host }:#*[*?]*})
+  h=($h ${${${(@M)${(f)"$(sources)"}:#Host *}#Host }:#*[*?]*})
 fi
 
 if [[ -r ~/.ssh/known_hosts ]]; then
